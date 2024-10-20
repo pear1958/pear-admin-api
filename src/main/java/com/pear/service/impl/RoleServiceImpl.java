@@ -5,16 +5,10 @@ import com.pear.dao.RoleMapper;
 import com.pear.service.RoleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-/**
- * <p>
- *  服务实现类
- * </p>
- *
- * @author zhangzy
- * @since 2024-10-19
- */
 @Service
+@Transactional
 public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements RoleService {
 
 }

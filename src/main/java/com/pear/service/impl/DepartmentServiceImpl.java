@@ -5,16 +5,10 @@ import com.pear.dao.DepartmentMapper;
 import com.pear.service.DepartmentService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-/**
- * <p>
- *  服务实现类
- * </p>
- *
- * @author zhangzy
- * @since 2024-10-19
- */
 @Service
+@Transactional
 public class DepartmentServiceImpl extends ServiceImpl<DepartmentMapper, Department> implements DepartmentService {
 
 }
