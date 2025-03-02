@@ -6,6 +6,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
+// 自动填充配置类
+
 @Component
 public class CommonMetaObjectHandler implements MetaObjectHandler {
   /**
