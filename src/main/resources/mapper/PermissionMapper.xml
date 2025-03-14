@@ -39,5 +39,4 @@
         where u.id =#{userId}
         order by p.id asc
     </select>
-
 </mapper>
