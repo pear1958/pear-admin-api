@@ -1,6 +1,7 @@
 package com.pear.config.security.handler;
 
 import com.alibaba.fastjson.JSON;
+import com.pear.config.security.exception.CustomerAuthenticationException;
 import com.pear.utils.Result;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.AuthenticationException;
@@ -20,9 +21,11 @@ import java.nio.charset.StandardCharsets;
 @Component
 public class LoginFailureHandler implements AuthenticationFailureHandler {
   @Override
-  public void onAuthenticationFailure(HttpServletRequest request,
-                                      HttpServletResponse response, AuthenticationException exception) throws
-    IOException, ServletException {
+  public void onAuthenticationFailure(
+    HttpServletRequest request,
+    HttpServletResponse response,
+    AuthenticationException exception
+  ) throws IOException, ServletException {
     // 设置客户端响应编码格式
     response.setContentType("application/json;charset=UTF-8");
     // 获取输出流
@@ -43,13 +46,15 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
       message = "账户被锁, 登录失败！";
     } else if (exception instanceof InternalAuthenticationServiceException) {
       message = "账户不存在, 登录失败！";
+    } else if(exception instanceof CustomerAuthenticationException){
+      message = exception.getMessage();
+      code = 600;
     } else {
       message = "登录失败！";
     }
 
     // 将错误信息转换成JSON
-    String result =
-      JSON.toJSONString(Result.error().code(code).message(message));
+    String result = JSON.toJSONString(Result.error().code(code).message(message));
     outputStream.write(result.getBytes(StandardCharsets.UTF_8));
     outputStream.flush();
     outputStream.close();
